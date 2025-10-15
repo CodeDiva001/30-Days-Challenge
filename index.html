@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambia Coding Challenge - 30 Days to Code</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Authentication Pages -->
+        <div id="auth-container" class="auth-container">
+            <!-- Sign Up Page -->
+            <div id="signup-page" class="auth-page active">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="fas fa-code"></i>
+                        <h2>Join Abbyte</h2>
+                        <p>Start your coding journey in Gambia</p>
+                    </div>
+                    <form id="signup-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="signup-name">Full Name</label>
+                            <input type="text" id="signup-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="showSignIn()">Sign In</a></p>
+                </div>
+            </div>
+
+            <!-- Sign In Page -->
+            <div id="signin-page" class="auth-page">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="fas fa-code"></i>
+                        <h2>Welcome Back</h2>
+                        <p>Continue your coding journey</p>
+                    </div>
+                    <form id="signin-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="signin-email">Email</label>
+                            <input type="email" id="signin-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signin-password">Password</label>
+                            <input type="password" id="signin-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App (hidden initially) -->
+        <div id="main-app" class="main-app" style="display: none;">
+            <!-- Header -->
+            <header class="header">
+                <div class="container">
+                    <div class="header-content">
+                        <div class="logo">
+                            <i class="fas fa-code"></i>
+                            <h1>Abbyte - Gambia Coding Challenge</h1>
+                        </div>
+                        <div class="header-controls">
+                            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <div class="user-menu">
+                                <span id="user-name">User</span>
+                                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+                            </div>
+                        </div>
+                        <nav class="nav">
+                            <button class="nav-btn active" data-tab="dashboard">
+                                <i class="fas fa-home"></i>
+                                Dashboard
+                            </button>
+                            <button class="nav-btn" data-tab="challenges">
+                                <i class="fas fa-tasks"></i>
+                                Challenges
+                            </button>
+                            <button class="nav-btn" data-tab="progress">
+                                <i class="fas fa-chart-line"></i>
+                                Progress
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content active">
+                    <div class="welcome-section">
+                        <h2>Welcome to Your Coding Journey! 🇬🇲</h2>
+                        <p>Complete 30 daily challenges to build your programming foundation. Each challenge is designed specifically for beginners in Gambia.</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="days-completed">0</h3>
+                                    <p>Days Completed</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="streak">0</h3>
+                                    <p>Day Streak</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-points">0</h3>
+                                    <p>Total Points</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="level">1</h3>
+                                    <p>Current Level</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="today-challenge">
+                        <h3>Today's Challenge</h3>
+                        <div id="today-challenge-content">
+                            <div class="challenge-preview">
+                                <h4 id="today-title">Day 1: Hello, Gambia!</h4>
+                                <p id="today-description">Write your first program to print "Hello, Gambia!" to the console.</p>
+                                <div class="difficulty-badge" id="today-difficulty">Beginner</div>
+                                <button class="btn btn-primary" onclick="startChallenge(1)">Start Challenge</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-achievements">
+                        <h3>Recent Achievements</h3>
+                        <div id="achievements-list">
+                            <div class="achievement-item">
+                                <i class="fas fa-medal"></i>
+                                <span>Welcome to the Challenge!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Challenges Tab -->
+                <div id="challenges" class="tab-content">
+                    <div class="challenges-header">
+                        <h2>30-Day Challenge Roadmap</h2>
+                        <p>Complete each challenge to unlock the next one. Build your skills progressively!</p>
+                    </div>
+                    
+                    <div class="challenges-grid" id="challenges-grid">
+                        <!-- Challenges will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Progress Tab -->
+                <div id="progress" class="tab-content">
+                    <div class="progress-header">
+                        <h2>Your Progress</h2>
+                        <p>Track your coding journey and see how far you've come!</p>
+                    </div>
+                    
+                    <div class="progress-stats">
+                        <div class="progress-chart">
+                            <h3>Completion Rate</h3>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="completion-progress"></div>
+                            </div>
+                            <p id="completion-text">0% Complete</p>
+                        </div>
+                        
+                        <div class="skill-progress">
+                            <h3>Skills Developed</h3>
+                            <div class="skill-item">
+                                <span>JavaScript Basics</span>
+                                <div class="skill-bar">
+                                    <div class="skill-fill" id="js-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span>Problem Solving</span>
+                                <div class="skill-bar">
+                                    <div class="skill-fill" id="problem-solving-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span>HTML/CSS</span>
+                                <div class="skill-bar">
+                                    <div class="skill-fill" id="html-css-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Challenge Modal -->
+        <div id="challenge-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Challenge Title</h3>
+                    <button class="close-btn" onclick="closeChallenge()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="challenge-info">
+                        <div class="challenge-description">
+                            <h4>Description</h4>
+                            <p id="modal-description">Challenge description here...</p>
+                        </div>
+                        <div class="challenge-theory">
+                            <h4>Theory & Explanation</h4>
+                            <div id="modal-theory">
+                                <p>Learn the concepts behind this challenge...</p>
+                            </div>
+                        </div>
+                        <div class="challenge-example">
+                            <h4>Example</h4>
+                            <pre><code id="modal-example">// Example code here</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="code-editor-section">
+                        <div class="editor-header">
+                            <h4>Your Solution</h4>
+                            <div class="language-tabs">
+                                <button class="lang-tab active" data-lang="html">HTML</button>
+                                <button class="lang-tab" data-lang="css">CSS</button>
+                                <button class="lang-tab" data-lang="js">JavaScript</button>
+                            </div>
+                            <div class="editor-controls">
+                                <button class="btn btn-secondary" onclick="runCode()">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                                <button class="btn btn-primary" onclick="submitSolution()">
+                                    <i class="fas fa-check"></i> Submit
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="html-editor" class="code-editor active" placeholder="Write your HTML here..."></textarea>
+                            <textarea id="css-editor" class="code-editor" placeholder="Write your CSS here..."></textarea>
+                            <textarea id="js-editor" class="code-editor" placeholder="Write your JavaScript here..."></textarea>
+                        </div>
+                        <div class="output-section">
+                            <div class="output-tabs">
+                                <button class="output-tab active" data-output="preview">Preview</button>
+                                <button class="output-tab" data-output="console">Console</button>
+                            </div>
+                            <div id="preview-output" class="output-content active">
+                                <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
+                            </div>
+                            <div id="console-output" class="output-content">
+                                <div id="code-output"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>&copy; 2024 Abbyte. All rights reserved.</p>
+                        <p>Building the future of Gambia through code education.</p>
+                    </div>
+                    <div class="footer-right">
+                        <p>Made with ❤️ for Gambian developers</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

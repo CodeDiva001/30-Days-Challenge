@@ -1,0 +1,17 @@
+{
+  "name": "gambia-coding-challenge",
+  "version": "1.0.0",
+  "description": "30-day coding challenge app for beginner coders in Gambia",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/"
+  },
+  "keywords": ["coding", "challenge", "gambia", "programming", "education"],
+  "author": "Gambia Coding Initiative",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  }
+}
